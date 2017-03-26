@@ -1,0 +1,24 @@
+{
+  "name": "wechat",
+  "version": "1.0.0",
+  "description": "wechat demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wechat",
+    "express"
+  ],
+  "author": "xiang_ji",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.2",
+    "koa": "^2.2.0",
+    "raw-body": "^2.2.0",
+    "request": "^2.81.0",
+    "sha1": "^1.1.1",
+    "xml2js": "^0.4.17"
+  }
+}
