@@ -5,8 +5,9 @@ const getRawBody = require('raw-body');
 const Wechat = require('./wechat');
 const util = require('./util');
 
-module.exports = function(opts) {
+module.exports = function(opts, handler) {
     let wechat = new Wechat(opts);
+
     return function *(next) {
         let that = this,
             token = opts.token,
@@ -36,27 +37,14 @@ module.exports = function(opts) {
             });
 
             let content = yield util.parseXMLAsync(data);
-
             let message = util.formatMessage(content.xml);
+            this.weixin = message;
             console.log(message);
-            if(message.MsgType === 'event') {
-                if(message.Event === 'subscribe') {
-                    let now = new Date().getTime(),
-                        reply = '<xml>' +
-                                '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
-                                '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
-                                '<CreateTime>' + now + '</CreateTime>' +
-                                '<MsgType><![CDATA[text]]></MsgType>' +
-                                '<Content><![CDATA[Hi, friend!]]></Content>' +
-                                '</xml>';
-                    that.status = 200;
-                    that.type = 'application/xml';
-                    that.body = reply;
-                    console.log(reply);
+    
+            yield handler.call(this, next);
 
-                    return;
-                }
-            }
+            // 回复
+            wechat.reply.call(this);
         }
     }
 }

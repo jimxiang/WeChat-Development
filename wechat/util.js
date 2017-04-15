@@ -2,7 +2,9 @@
 
 const xml2js = require('xml2js');
 const Promise = require('bluebird');
+const template = require('./template');
 
+// 原始XML解析
 exports.parseXMLAsync = function(xml) {
     return new Promise(function(resolve, reject) {
         xml2js.parseString(xml, {trim: true}, function(err, content) {
@@ -15,6 +17,7 @@ exports.parseXMLAsync = function(xml) {
     })
 }
 
+// 格式化为js对象
 function formatMessage(result) {
     let message = {};
 
@@ -32,7 +35,7 @@ function formatMessage(result) {
                 if('object' === typeof value) {
                     message[key] = formatMessage(val);
                 } else {
-                    message[key] = (val || '').trim();
+                    message[key] = ('' + val || '').trim();
                 }
             }
             else {
@@ -47,3 +50,23 @@ function formatMessage(result) {
 }
 
 exports.formatMessage = formatMessage;
+
+// 返回XML给微信
+exports.template = function(content, message) {
+    let info = {},
+        type = 'text',
+        fromUsername = message.FromUserName,
+        toUsername = message.ToUserName;
+    if(Array.isArray(content)) {
+        type = 'news';
+    }
+
+    type = (content && content.type) || type;
+    info.content = content;
+    info.createTime = new Date().getTime();
+    info.fromUserName = fromUsername;
+    info.toUserName = toUsername;
+    info.msgType = type;
+
+    return template.compiled(info);
+}

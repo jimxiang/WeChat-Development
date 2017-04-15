@@ -1,3 +1,4 @@
+// 工具方法：读写文件
 'use strict';
 
 const fs = require('fs');
