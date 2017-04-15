@@ -69,21 +69,21 @@ exports.reply = function* (next) {
         let content = message.Content,
             reply = '额，你说的 ' + message.Content+ ' 太复杂了';
         if('1' === content) {
-            reply = '天下第一吃大米';
+            reply = '你输入了1';
         } else if('2' === content) {
-            reply = '天下第二吃豆腐';
+            reply = '你输入了2';
         } else if('3' === content) {
-            reply = '天下第三吃仙丹';
+            reply = '你输入了3';
         } else if('4' === content) {
             reply = [{
                 title: '技术改变世界',
                 description: '只是个描述而已',
-                pic_url: 'http://www.uimaker.com/uploads/allimg/120723/1_120723010545_1.png',
-                url: 'https://github.com/'
+                pic_url: '',
+                url: ''
             }];
         } else if('5' === content) {
             // 个人类型的订阅号（即未审核）不能使用素材上传接口！
-            let data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../5.jpeg'));
+            let data = yield wechatApi.uploadMaterial('image', path.join(__dirname, 'xxx.jpeg'));
             console.log(data);
             reply = {
                 type: 'image',
@@ -91,7 +91,7 @@ exports.reply = function* (next) {
             };
         } else if('6' === content) {
             // 测试账号上传长传视频素材会超时，导致5秒内不能提供回复，打印出的data和reply都是正常的，原因可能是测试账号有限制
-            let data = yield wechatApi.uploadMaterial('video', path.join(__dirname, '../6.mp4'));
+            let data = yield wechatApi.uploadMaterial('video', path.join(__dirname, 'xxx.mp4'));
             console.log(data);
             reply = {
                 type: 'video',
@@ -101,19 +101,19 @@ exports.reply = function* (next) {
             }
             console.log(reply);
         } else if('7' === content) {
-            let data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../5.jpeg'));
+            let data = yield wechatApi.uploadMaterial('image', path.join(__dirname, 'xxx.jpeg'));
             console.log(data);
             reply = {
                 type: 'music',
                 title: '回复音乐内容',
                 description: '放松一下',
-                musicUrl: 'http://101.227.98.46/m10.music.126.net/20170409201259/7c49e390000dea4d949339f249be28be/ymusic/4ab4/ce06/cae4/6787fcdbbac1624c736e7f2c32dee95c.mp3?wshc_tag=1&wsts_tag=58ea1fb9&wsid_tag=b4a00118&wsiphost=ipdbm',
+                musicUrl: '',
                 thumbMediaId: data.media_id
             };
             console.log(reply);
         } else if('8' === content) {
             // 上传永久素材
-            let data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../5.jpeg'), {type: 'image'});
+            let data = yield wechatApi.uploadMaterial('image', path.join(__dirname, 'xxx.jpeg'), {type: 'image'});
             
             reply = {
                 type: 'image',
@@ -121,7 +121,7 @@ exports.reply = function* (next) {
             };
         } else if('9' === content) {
             // 上传永久素材
-            let data = yield wechatApi.uploadMaterial('video', path.join(__dirname, '../6.mp4'), {type: 'video', description: '{"title": "nice", "introduction": "hhhh"}'});
+            let data = yield wechatApi.uploadMaterial('video', path.join(__dirname, 'xxx.mp4'), {type: 'video', description: '{"title": "nice", "introduction": "hhhh"}'});
             console.log(data);
             
             reply = {
@@ -131,18 +131,18 @@ exports.reply = function* (next) {
                 description: '随便拍拍'
             };
         } else if('10' === content) {
-            let picData = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../5.jpeg'), {});
+            let picData = yield wechatApi.uploadMaterial('image', path.join(__dirname, 'xxx.jpeg'), {});
             console.log(picData);
 
             let media = {
                 articles: [{
                     title: 'image',
                     thumb_media_id: picData.media_id,
-                    author: 'xiang_ji',
+                    author: '',
                     digest: 'nothing',
                     show_cover_pic: 1,
                     content: 'nothing',
-                    content_source_url: 'https://baidu.com'
+                    content_source_url: ''
                 }]
             };
 
