@@ -35,7 +35,7 @@ str = [
     ].sort().join('&');
 signature = (crypto.createHash('sha1')).update(str).digest('hex');
 ```
-返回nonceStr、timestamp和signature到页面js中进行校验，校验前需要进入JSSDK需要的外部js文件，然后使用**wx.config()**方法进行校验，在**config**方法中会传入这个需要页面使用的功能名称，校验成功后，该页面就可以使用这些功能了。
+返回nonceStr、timestamp和signature到页面js中进行校验，校验前需要进入JSSDK需要的外部js文件，然后使用**wx.config()**方法进行校验，在**config**方法中会传入这个页面需要使用的功能名称，校验成功后，该页面就可以使用这些功能了。
 
 
 ---
